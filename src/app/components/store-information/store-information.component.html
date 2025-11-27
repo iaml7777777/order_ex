@@ -1,0 +1,26 @@
+<body>
+  <div>
+    <h1 class="lunch">吃午餐</h1>
+    <!-- <input
+      placeholder="請輸入店家"
+      nz-input
+      [(ngModel)]="inputValue"
+      (ngModelChange)="onChange($event)"
+      [nzAutocomplete]="auto"
+      /> -->
+    <nz-select nzAllowClear nzPlaceHolder="請選擇店家" [(ngModel)]="inputValue" (ngModelChange)="onChange($event)">
+      <nz-option  *ngFor="let option of filteredOptions" [nzLabel]="option" [nzValue]="option"></nz-option>
+    </nz-select>
+    <button class="search" nz-button nzType="primary" (click)="selectStore()">
+      <i nz-icon nzType="search" nzTheme="outline"></i>
+    </button>
+    <!-- <nz-autocomplete #auto (nzSelect)="onSelectStore($event)">
+      <nz-auto-option
+        *ngFor="let option of filteredOptions"
+        [nzValue]="option"
+      >
+        {{ option }}
+      </nz-auto-option>
+    </nz-autocomplete> -->
+  </div>
+</body>

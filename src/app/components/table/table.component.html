@@ -1,0 +1,127 @@
+<h1>今天吃{{ storeName }}</h1>
+<button class="btdd" nz-button nzType="primary" (click)="open()">菜單</button>
+<a *ngIf="shopUrl" [href]="shopUrl" target="_blank" style="margin-left: 10px; font-size: 16px;">店家資訊</a>
+
+<div class="table">
+  <nz-spin class="loading" [nzSpinning]="loading" *ngIf="loading"></nz-spin>
+  <table>
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>餐點</th>
+        <th>數量</th>
+        <th>單價</th>
+        <th>金額</th>
+        <th>備註</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of orderList; let i = index;">
+        <td>{{item.name}}</td>
+        <td>{{item.meal}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.unitPrice}}</td>
+        <td>{{item.quantity * item.unitPrice}}</td>
+        <td>{{item.ps}}</td>
+        <td class="btd">
+          <button class="btdd" nz-button nzType="primary" (click)="editModal(i)">編輯</button>
+          <button class="btdd" nz-button nzType="primary" (click)="deletModal(i)">刪除</button>
+        </td>
+      </tr>
+    </tbody>
+    <tr class="align-right">
+      <td colspan="4" class="total">總計：</td>
+      <td colspan="3" class="total">{{ total }}</td>
+    </tr>
+  </table>
+</div>
+<div class="opreation">
+  <button class="btdd" nz-button nzType="primary" (click)="newModal()"><span>新增</span></button>
+  <!-- <button class="btdd" nz-button nzType="primary" (click)="saveModal()">保存</button> -->
+</div>
+
+
+<!-- 新增資料 -->
+<nz-modal [nzWidth]="'75%'" [(nzVisible)]="isVisible" nzTitle="新增餐點" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>餐點</th>
+          <th>數量</th>
+          <th>單價</th>
+          <th>備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <nz-select [(ngModel)]="newOrder.name" nzPlaceHolder="請選擇姓名" style="width: 100%;">
+              <nz-option *ngFor="let client of clientList" [nzValue]="client" [nzLabel]="client"></nz-option>
+            </nz-select>
+          </td>
+          <td><input nz-input [(ngModel)]="newOrder.meal"></td>
+          <td><input nz-input type="number" [(ngModel)]="newOrder.quantity" min="1"></td>
+          <td><input nz-input type="number" [(ngModel)]="newOrder.unitPrice" min="0"></td>
+          <td><input nz-input [(ngModel)]="newOrder.ps"></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</nz-modal>
+<!-- 刪除資料 -->
+<nz-modal [nzWidth]="'30%'" [(nzVisible)]="deletVisible" nzTitle="刪除" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="deletOk()">
+  <ng-container *nzModalContent>
+    <div>確定要刪除這筆訂單嗎?</div>
+  </ng-container>
+</nz-modal>
+<!-- 編輯資料 -->
+<nz-modal [nzWidth]="'75%'" [(nzVisible)]="editVisible" nzTitle="編輯餐點" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="editOk()">
+  <ng-container *nzModalContent>
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>餐點</th>
+          <th>數量</th>
+          <th>單價</th>
+          <th>備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input nz-input [(ngModel)]="editOrder.name" [disabled]="true"></td>
+          <td><input nz-input [(ngModel)]="editOrder.meal"></td>
+          <td><input nz-input type="number" [(ngModel)]="editOrder.quantity" min="1"></td>
+          <td><input nz-input type="number" [(ngModel)]="editOrder.unitPrice" min="0"></td>
+          <td><input nz-input [(ngModel)]="editOrder.ps"></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</nz-modal>
+<!-- 保存資料 -->
+<!-- <nz-modal [nzWidth]="'30%'" [(nzVisible)]="saveVisible" nzTitle="保存" (nzOnCancel)="handleCancel()" (nzOnOk)="saveOk()">
+  <ng-container *nzModalContent>
+    <div>確定儲存?</div>
+  </ng-container>
+</nz-modal> -->
+<!-- 抽屜 -->
+<nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" [nzWidth]=550 nzTitle="菜單"
+  (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <nz-carousel [nzEffect]="'scrollx'" *ngIf="menuImages.length > 0" style="height: calc(100vh - 100px); width: 100%;">
+      <div nz-carousel-content *ngFor="let img of menuImages" style="height: 100%; overflow-y: auto;">
+        <img [src]="img" alt="Menu" style="width: 100%; height: auto; display: block;">
+      </div>
+    </nz-carousel>
+    <div *ngIf="menuImages.length === 0">
+      <p>尚無菜單圖片</p>
+    </div>
+  </ng-container>
+</nz-drawer>
