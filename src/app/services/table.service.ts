@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GetOrderListParams, GetOrderListResponse } from './models/table.model';
@@ -21,8 +21,7 @@ export class TableService {
       }
     });
 
-    const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Order", { params: httpParams, headers })
+    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Order", { params: httpParams })
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -48,8 +47,7 @@ export class TableService {
       }
     };
     console.log('Saving Order Payload:', JSON.stringify(payload, null, 2));
-    const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/SaveOrder", payload, { headers })
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/SaveOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -66,8 +64,7 @@ export class TableService {
         parameter: order
       }
     };
-    const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/AddOrder", payload, { headers })
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/AddOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -84,8 +81,7 @@ export class TableService {
         parameter: order
       }
     };
-    const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/EditOrder", payload, { headers })
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/EditOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -105,8 +101,7 @@ export class TableService {
         }
       }
     };
-    const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/DeleteOrder", payload, { headers })
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/DeleteOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -125,8 +120,7 @@ export class TableService {
         httpParams = httpParams.set(key, value);
       }
     });
-    const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Shop", { params: httpParams, headers })
+    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Shop", { params: httpParams })
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -145,8 +139,7 @@ export class TableService {
         httpParams = httpParams.set(key, value);
       }
     });
-    const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Client", { params: httpParams, headers })
+    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Client", { params: httpParams })
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
