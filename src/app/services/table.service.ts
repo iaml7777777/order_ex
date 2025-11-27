@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GetOrderListParams, GetOrderListResponse } from './models/table.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class TableService {
       }
     });
 
-    return this.http.get<any>("/restful/service/saaat/AgentDemo/Order", { params: httpParams })
+    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Order", { params: httpParams })
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -46,7 +47,7 @@ export class TableService {
       }
     };
     console.log('Saving Order Payload:', JSON.stringify(payload, null, 2));
-    return this.http.post<any>("/restful/service/saaat/AgentDemo/SaveOrder", payload)
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/SaveOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -63,7 +64,7 @@ export class TableService {
         parameter: order
       }
     };
-    return this.http.post<any>("/restful/service/saaat/AgentDemo/AddOrder", payload)
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/AddOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -80,7 +81,7 @@ export class TableService {
         parameter: order
       }
     };
-    return this.http.post<any>("/restful/service/saaat/AgentDemo/EditOrder", payload)
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/EditOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -100,7 +101,7 @@ export class TableService {
         }
       }
     };
-    return this.http.post<any>("/restful/service/saaat/AgentDemo/DeleteOrder", payload)
+    return this.http.post<any>(environment.apiUrl + "/service/saaat/AgentDemo/DeleteOrder", payload)
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -119,7 +120,7 @@ export class TableService {
         httpParams = httpParams.set(key, value);
       }
     });
-    return this.http.get<any>("/restful/service/saaat/AgentDemo/Shop", { params: httpParams })
+    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Shop", { params: httpParams })
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {
@@ -138,7 +139,7 @@ export class TableService {
         httpParams = httpParams.set(key, value);
       }
     });
-    return this.http.get<any>("/restful/service/saaat/AgentDemo/Client", { params: httpParams })
+    return this.http.get<any>(environment.apiUrl + "/service/saaat/AgentDemo/Client", { params: httpParams })
       .pipe(
         map(res => {
           if (res.std_data.execution.code !== "0") {

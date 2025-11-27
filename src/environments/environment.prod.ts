@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://cinthia-scalpless-unschematically.ngrok-free.dev/restful'
 };
